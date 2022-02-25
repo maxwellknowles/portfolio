@@ -1,0 +1,9 @@
+lib2to3
+urllib3
+pandas
+streamlit
+numpy
+datetime
+streamlit_option_menu
+base64
+PIL
