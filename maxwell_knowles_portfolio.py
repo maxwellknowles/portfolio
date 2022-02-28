@@ -25,7 +25,8 @@ if choose == 'Bio & Resume':
     col_photo, col_about = st.columns(2)
     with col_about:
         st.header('About')
-        st.write("I completed my undergraduate studies as an Edward J. Sexton Fellow of Philosophy, Politics, and Economics at Claremont McKenna College in 2020 before joining Zero as its eighth full-time team member. Since starting in May of 2020, I've focused on elevating Zero's tech and data visibility, collaborating regularly with warehouse and fleet operations, growth, engineering, business operations, and data science. I'm currently taking coursework in entrepreneurship and venture capital at Claremont Graduate University and competing in the javelin throw, continuing to work full-time as a PM along the way.")
+        st.write("I completed my undergraduate studies as an Edward J. Sexton Fellow of Philosophy, Politics, and Economics at Claremont McKenna College in 2020 before joining Zero as its eighth full-time team member. Since starting in May of 2020, I've focused on elevating Zero's tech and data visibility, collaborating regularly with engineering, data science, warehouse and fleet operations, growth, and business operations. I'm currently taking coursework in entrepreneurship and venture capital at Claremont Graduate University and competing in the javelin throw, continuing to work in Product along the way.")
+        st.write("Thanks for taking the time to learn a bit more about me. I invite you to look through this portfolio web app I created with Python and Streamlit.")
     with col_photo:
         st.image("https://github.com/maxwellknowles/portfolio/raw/main/_89A6473_DxO%20.jpg")
     resume = "https://github.com/maxwellknowles/portfolio/raw/main/Maxwell_Knowles_Resume_2022.pdf"
@@ -113,6 +114,8 @@ if choose == "Data-Intensive Work":
 
 if choose == "Prototypes & Tools":
     st.title("Prototypes & Tools")
+    st.write("During my time working in Product at Zero Grocery (an early-stage startup), I quickly learned the value of being able to rapidly spin up low or no-code solutions for ad hoc and isolated issues in order to keep our lean team of software engineers on our established roadmap. Engineering at a startup is often a precious resource, and I have embraced the challenge of both becoming a more technical PM and utilizing low-code resources — such as Streamlit and Glide Apps — to solve business problems.")
+
     st.header("Tool: Stock Verification")
     with st.expander("See details"):
         st.subheader("Purpose")
@@ -148,7 +151,7 @@ if choose == "Consulting with Eikona":
     st.title("Consulting with Eikona")
     eikona_link = "eikona.art"
     eikona_streamlit_app = "https://share.streamlit.io/maxwellknowles/eikona/main/eikona_projection.py"
-    st.write("Eikona — [a startup](%s) working at the nexus of gaming and NFTs — is currently preparing to pitch to angel investors. I've served as a product and strategy consultant on the project, with this Streamlit app serving as one tool in developing and visualizing Eikona's financial projections." % eikona_link)
+    st.write("Eikona — [a startup](%s) working at the nexus of gaming and NFTs — is currently preparing to pitch to angel investors. I've served as a product and strategy consultant on the project, with this Streamlit app serving as one tool in developing and visualizing Eikona's financial projections." % eikona_link)
     st.write("You can see the live Streamlit app for Eikona [here](%s)." % eikona_streamlit_app)
 
     #data
