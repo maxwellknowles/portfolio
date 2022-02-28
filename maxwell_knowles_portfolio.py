@@ -148,7 +148,7 @@ if choose == "Consulting with Eikona":
     st.title("Consulting with Eikona")
     eikona_link = "eikona.art"
     eikona_streamlit_app = "https://share.streamlit.io/maxwellknowles/eikona/main/eikona_projection.py"
-    st.write("Eikona — [a startup] (%s) working at the nexus of gaming and NFTs — is currently preparing to pitch to angel investors. I've served as a product and strategy consultant on the project, with this Streamlit app serving as one tool in developing and visualizing Eikona's financial projections." % eikona_link)
+    st.write("Eikona — [a startup](%s) working at the nexus of gaming and NFTs — is currently preparing to pitch to angel investors. I've served as a product and strategy consultant on the project, with this Streamlit app serving as one tool in developing and visualizing Eikona's financial projections." % eikona_link)
     st.write("You can see the live Streamlit app for Eikona [here](%s)." % eikona_streamlit_app)
 
     #data
