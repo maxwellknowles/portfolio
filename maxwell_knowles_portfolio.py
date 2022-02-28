@@ -7,7 +7,6 @@ from datetime import datetime
 from streamlit_option_menu import option_menu
 import streamlit.components.v1 as html
 import urllib.request
-from PIL import Image
 
 with st.sidebar:
     choose = option_menu("Maxwell's Portfolio", ["Bio & Resume", "Low-Code Prototypes & Tools", "Data-Intensive Work", "Products & Features", "Consulting with Eikona", "Contact"],
