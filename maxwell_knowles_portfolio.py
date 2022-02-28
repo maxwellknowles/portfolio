@@ -27,7 +27,7 @@ if choose == 'Bio & Resume':
         st.header('About')
         st.write("I completed my undergraduate studies as an Edward J. Sexton Fellow of Philosophy, Politics, and Economics at Claremont McKenna College in 2020 before joining Zero as its eighth full-time team member. Since starting in May of 2020, I've focused on elevating Zero's tech and data visibility, collaborating regularly with warehouse and fleet operations, growth, engineering, business operations, and data science. I'm currently taking coursework in entrepreneurship and venture capital at Claremont Graduate University and competing in the javelin throw, continuing to work full-time as a PM along the way.")
     with col_photo:
-        st.image("https://github.com/maxwellknowles/portfolio/raw/main/_89A6446_DxO%20.jpg")
+        st.image("https://github.com/maxwellknowles/portfolio/raw/main/_89A6473_DxO%20.jpg")
     resume = "https://github.com/maxwellknowles/portfolio/raw/main/Maxwell_Knowles_Resume_2022.pdf"
     st.write("[Download Resume](%s)" % resume)
     with st.expander("See Resume"):
