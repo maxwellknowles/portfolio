@@ -33,18 +33,6 @@ if choose == 'Bio & Resume':
     with st.expander("See Resume"):
             st.image("https://github.com/maxwellknowles/portfolio/raw/main/resume.png")
 
-    st.header('Education')
-    st.subheader("Claremont Graduate University")
-    st.markdown("**Certificate in Entrepreneurship** _(May 2022)_")
-    st.subheader("Claremont McKenna College")
-    st.markdown("**BA in Philosophy, Politics, and Economics** _(December 2020)_")
-    with st.expander("Senior Thesis"):
-        thesis = "https://scholarship.claremont.edu/cmc_theses/2502/"
-        st.write("[_Populism: An Exploration into the American Case Through the Academic Literature, Data Analysis, and Fiction_](%s)" % thesis)
-        st.write("The twenty-first century has seen a rise in populist leadership and rhetoric throughout the globe, with the United States standing as one powerful case. This thesis hopes to develop the “story” of populism from multiple perspectives, attempting to not only inform but change the way we approach the populist movement in America, and perhaps, the world. In Part I, I summarize and blend much of the core literature written on populism and economic change, developing the story that populism in America today has its roots in the significant techno-economic and cultural paradigmatic shifts of the 1970s. Social media and an evolving political philosophy, particularly among the youth, are also explored. In Part II, I iterate multiple predictive data models using roughly 20 dimensions of democratic and economic life in the United States as independent variables, with different definitions of populism as the dependent variable. I find — counter to what the aforementioned literature might imply — that increasing unemployment is negatively correlated with populist leadership (at a significance level of 0.05, no less), while the “civil society organization participatory environment” and “social class equality in civil liberty” variables are positively correlated, corresponding conceptually with the literature. Finally, Part III is a creative work — The Mind of Demos — in which a fictional college student allegorizes the rise and nature of populism in six cantos, complete with two fictional commentaries and a forward by a fictional professor from the future.")
-    with st.expander("Selected coursework"):
-        st.write("The Politics of the Gig Economy, Data Science & Statistical Learning, The Idea of Poetry, 7 Steps to Startup, Entrepreneurial Finance, Startup Business Models")
-
     st.header('Work Experience')
     st.subheader("Zero Grocery")
     st.markdown("**Product Manager** _(August 2021 - Present)_")
@@ -81,6 +69,18 @@ if choose == 'Bio & Resume':
         st.write("Scrum, Notion, Jira, Linear, Trello, Miro, Whimsical, Figma")
     with st.expander("Interests"):
         st.write("Music, Poetry, Philosophy, Entrepreneurship, Comedy, Populism")
+        
+    st.header('Education')
+    st.subheader("Claremont Graduate University")
+    st.markdown("**Certificate in Entrepreneurship** _(May 2022)_")
+    st.subheader("Claremont McKenna College")
+    st.markdown("**BA in Philosophy, Politics, and Economics** _(December 2020)_")
+    with st.expander("Senior Thesis"):
+        thesis = "https://scholarship.claremont.edu/cmc_theses/2502/"
+        st.write("[_Populism: An Exploration into the American Case Through the Academic Literature, Data Analysis, and Fiction_](%s)" % thesis)
+        st.write("The twenty-first century has seen a rise in populist leadership and rhetoric throughout the globe, with the United States standing as one powerful case. This thesis hopes to develop the “story” of populism from multiple perspectives, attempting to not only inform but change the way we approach the populist movement in America, and perhaps, the world. In Part I, I summarize and blend much of the core literature written on populism and economic change, developing the story that populism in America today has its roots in the significant techno-economic and cultural paradigmatic shifts of the 1970s. Social media and an evolving political philosophy, particularly among the youth, are also explored. In Part II, I iterate multiple predictive data models using roughly 20 dimensions of democratic and economic life in the United States as independent variables, with different definitions of populism as the dependent variable. I find — counter to what the aforementioned literature might imply — that increasing unemployment is negatively correlated with populist leadership (at a significance level of 0.05, no less), while the “civil society organization participatory environment” and “social class equality in civil liberty” variables are positively correlated, corresponding conceptually with the literature. Finally, Part III is a creative work — The Mind of Demos — in which a fictional college student allegorizes the rise and nature of populism in six cantos, complete with two fictional commentaries and a forward by a fictional professor from the future.")
+    with st.expander("Selected coursework"):
+        st.write("The Politics of the Gig Economy, Data Science & Statistical Learning, The Idea of Poetry, 7 Steps to Startup, Entrepreneurial Finance, Startup Business Models")
 
     st.header("Athletics") 
     st.subheader("CMS Track & Field")
