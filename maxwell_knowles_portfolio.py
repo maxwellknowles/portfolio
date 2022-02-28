@@ -9,8 +9,8 @@ import streamlit.components.v1 as html
 import urllib.request
 
 with st.sidebar:
-    choose = option_menu("Maxwell's Portfolio", ["Bio & Resume", "Prototypes & Tools", "Data-Intensive Work", "Consulting with Eikona", "Contact"],
-                         icons=['house', 'arrow-clockwise', '123', 'activity', 'archive'],
+    choose = option_menu("Maxwell's Portfolio", ["Bio & Resume", "Prototypes & Tools", "Consulting with Eikona", "Contact"],
+                         icons=['house', 'arrow-clockwise', 'activity', 'archive'],
                          menu_icon="app-indicator", default_index=0,
                          styles={
         "container": {"padding": "5!important", "background-color": "#BBBBBD"},
