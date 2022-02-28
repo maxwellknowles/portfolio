@@ -9,8 +9,8 @@ import streamlit.components.v1 as html
 import urllib.request
 
 with st.sidebar:
-    choose = option_menu("Maxwell's Portfolio", ["Bio & Resume", "Low-Code Prototypes & Tools", "Data-Intensive Work", "Products & Features", "Consulting with Eikona", "Contact"],
-                         icons=['house', 'arrow-clockwise', 'kanban', '123','activity', 'archive'],
+    choose = option_menu("Maxwell's Portfolio", ["Bio & Resume", "Prototypes & Tools", "Data-Intensive Work", "Consulting with Eikona", "Contact"],
+                         icons=['house', 'arrow-clockwise', '123', 'activity', 'archive'],
                          menu_icon="app-indicator", default_index=0,
                          styles={
         "container": {"padding": "5!important", "background-color": "#BBBBBD"},
@@ -22,12 +22,16 @@ with st.sidebar:
 
 if choose == 'Bio & Resume':
     st.title('Maxwell Knowles: Bio & Resume')
-    st.header('About')
-    st.write("I completed my undergraduate studies as an Edward J. Sexton Fellow of Philosophy, Politics, and Economics at Claremont McKenna College in 2020 before joining Zero as its eighth full-time team member. Since starting in May of 2020, I've focused on multiple functions, from warehouse and fleet operations to growth to data. I'm currently taking coursework in entrepreneurship and venture capital at Claremont Graduate University and competing in the javelin throw while continuing to work full-time in product.")
+    col_photo, col_about = st.columns(2)
+    with col_about:
+        st.header('About')
+        st.write("I completed my undergraduate studies as an Edward J. Sexton Fellow of Philosophy, Politics, and Economics at Claremont McKenna College in 2020 before joining Zero as its eighth full-time team member. Since starting in May of 2020, I've focused on elevating Zero's tech and data visibility, collaborating regularly with warehouse and fleet operations, growth, engineering, business operations, and data science. I'm currently taking coursework in entrepreneurship and venture capital at Claremont Graduate University and competing in the javelin throw, continuing to work full-time as a PM along the way.")
+    with col_photo:
+        st.image("https://github.com/maxwellknowles/portfolio/raw/main/_89A6446_DxO%20.jpg")
     resume = "https://github.com/maxwellknowles/portfolio/raw/main/Maxwell_Knowles_Resume_2022.pdf"
     st.write("[Download Resume](%s)" % resume)
     with st.expander("See Resume"):
-        st.image("https://github.com/maxwellknowles/portfolio/raw/main/resume.png")
+            st.image("https://github.com/maxwellknowles/portfolio/raw/main/resume.png")
 
     st.header('Education')
     st.subheader("Claremont Graduate University")
@@ -107,17 +111,38 @@ if choose == "Data-Intensive Work":
         st.image("https://github.com/maxwellknowles/portfolio/raw/main/renewal3.png")
     
 
-if choose == "Low-Code Prototypes & Tools":
-    st.title("Low-Code Prototypes & Tools")
+if choose == "Prototypes & Tools":
+    st.title("Prototypes & Tools")
     st.header("Tool: Stock Verification")
-    st.subheader("Purpose")
-    st.write("Allow operations and merchandising leads to verify stock levels for items marked out-of-stock as pickers fulfill orders.")
-    st.subheader("How It Works")
-    st.write("I wrote a Python script that filtered orders on their packing status, checked each item in each relevant order for a 'not_packaged' attribute, then uploaded a dataframe of out-of-stock items in in-progress orders to Google Sheets. I deployed the script in GCP, then used the Google Cloud Scheduler to automate running the script every 5 minutes, allowing our team to adapt in real-time. Finally, I used one of my favorite no-code solutions, Glide Apps, to create an easy mobile UI for teammates to find and sort the relevant data. Glide treats spreadsheets like a database, so as long my GCP function continued to update the data in Google Sheets, app users would have a constant flow of accurate and actionable information.")
-    st.subheader("Screen Recorded Walkthrough")
-    st.video("https://youtu.be/NEJvjzBdl9k")
-    glide = "www.glideapps.com"
-    st.caption("Find more information on Glide [here](%s)" % glide)
+    with st.expander("See details"):
+        st.subheader("Purpose")
+        st.write("Allow operations and merchandising leads to verify stock levels for items marked out-of-stock as pickers fulfill orders.")
+        st.subheader("How It Works")
+        st.write("I wrote a Python script that filtered orders on their packing status, checked each item in each relevant order for a 'not_packaged' attribute, then uploaded a dataframe of out-of-stock items in in-progress orders to Google Sheets. I deployed the script in GCP, then used the Google Cloud Scheduler to automate running the script every 5 minutes, allowing our team to adapt in real-time. Finally, I used one of my favorite no-code solutions, Glide Apps, to create an easy mobile UI for teammates to find and sort the relevant data. Glide treats spreadsheets like a database, so as long my GCP function continued to update the data in Google Sheets, app users would have a constant flow of accurate and actionable information.")
+        st.subheader("Screen Recorded Walkthrough")
+        st.video("https://youtu.be/NEJvjzBdl9k")
+        glide = "www.glideapps.com"
+        st.caption("Find more information on Glide [here](%s)" % glide)
+    st.header("Tool: Zero Grocery Analytics Streamlit Web App")
+    with st.expander("See details"):
+        st.subheader("Purpose")
+        st.write("To create the most comprehensive place for different teams to come and engage with data from three Shopify sites and inFlow.")
+        st.subheader("How It Works")
+        st.write("I wrote a Python script that pulled in data from spreadsheets (which were populated with GCP functions that interacted with Shopify and inFlow at set intervals, preventing us from hitting API call limits). I then used the Streamlit library to present this data in a user-friendly manner, organizing the data thematically and implementing charts, maps, rankings, and k-means clustering.")
+        st.subheader("Screen Recording")
+        st.video("https://youtu.be/vn3SJHaw4tM")
+
+#if choose == "Product & Feature Examples":
+#   st.title("Product & Feature Examples")
+#    st.header("Implementing Delivery Windows: An Early & Adaptable Solution at Zero Grocery")
+#    st.subheader("")
+#    st.write("To create the most comprehensive place for different teams to come and engage with data from three Shopify sites and inFlow.")
+#    st.subheader("Product Considerations")
+#    st.write("To create the most comprehensive place for different teams to come and engage with data from three Shopify sites and inFlow.")
+#    st.subheader("Tackling the Problem")
+#    st.write("To create the most comprehensive place for different teams to come and engage with data from three Shopify sites and inFlow.")
+
+#    st.header("The Picker App: A Solution for Zero")
 
 if choose == "Consulting with Eikona":
     st.title("Consulting with Eikona")
@@ -125,7 +150,7 @@ if choose == "Consulting with Eikona":
     eikona_streamlit_app = "https://share.streamlit.io/maxwellknowles/eikona/main/eikona_projection.py"
     st.write("Eikona — [a startup] (%s) working at the nexus of gaming and NFTs — is currently preparing to pitch to angel investors. I've served as a product and strategy consultant on the project, with this Streamlit app serving as one tool in developing and visualizing Eikona's financial projections." % eikona_link)
     st.write("You can see the live Streamlit app for Eikona [here](%s)." % eikona_streamlit_app)
-    
+
     #data
     coinbase_users = pd.read_csv("https://raw.githubusercontent.com/maxwellknowles/eikona/main/coinbase_users.csv")
     pokemongo_users = pd.read_csv("https://raw.githubusercontent.com/maxwellknowles/eikona/main/pg_users.csv")
@@ -188,6 +213,8 @@ if choose == "Consulting with Eikona":
         st.subheader('Pokemon Go Users (in millions)')
         st.line_chart(pokemongo_users)
 
+    #st.subheader('Estimated Users in NFT Space')
+
     st.header('Eikona Financial Projections: Early and Terminal')
     st.subheader('Eikona early projections, starting with an estimated 1000 core users by end of 2022...')
     col3, col4 = st.columns(2)
@@ -237,6 +264,7 @@ if choose == "Consulting with Eikona":
         eikona_finances_graph = eikona_finances[['Year','Revenue', 'Costs', 'Profit']]
         eikona_finances_graph = eikona_finances_graph.set_index('Year')
         st.line_chart(eikona_finances_graph)
+
 
 if choose == "Contact":
     st.title("Contact Information")
