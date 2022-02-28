@@ -4,5 +4,4 @@ streamlit
 numpy
 datetime
 streamlit_option_menu
-base64
 PIL
