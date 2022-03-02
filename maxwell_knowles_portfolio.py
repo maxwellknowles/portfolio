@@ -6,9 +6,16 @@ import numpy as np
 from datetime import datetime
 from streamlit_option_menu import option_menu
 import streamlit.components.v1 as html
+
 import urllib.request
+from urllib.parse import urlparse
+from urllib.request import urlopen, Request
+from bs4 import BeautifulSoup
+from urllib.error import HTTPError
+from urllib.error import URLError
 import requests
 from googlesearch import search
+
 
 st.set_page_config(layout = "wide")
 with st.sidebar:
