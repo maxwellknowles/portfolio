@@ -32,11 +32,13 @@ with st.sidebar:
 
 if choose == 'Bio & Resume':
     st.title('Maxwell Knowles: Bio & Resume')
+    st.write("Hey there! Welcome to my portfolio of projects and tools I created with Python and Streamlit.")
+    st.write("I made this web app so friends, companies, and recruiters alike could see what I've been up to as a product manager, fan of data science, music maker, and javelin thrower.")
     col_photo, col_about = st.columns(2)
     with col_about:
         st.header('About')
         st.write("I completed my undergraduate studies as an Edward J. Sexton Fellow of Philosophy, Politics, and Economics at Claremont McKenna College in 2020 before joining Zero as its eighth full-time team member. Since starting in May of 2020, I've focused on elevating Zero's tech and data visibility, collaborating regularly with engineering, data science, warehouse and fleet operations, growth, and business operations. I'm currently taking coursework in entrepreneurship and venture capital at Claremont Graduate University and competing in the javelin throw, continuing to work in Product along the way.")
-        st.write("Thanks for taking the time to learn a bit more about me. I invite you to look through this portfolio web app I created with Python and Streamlit.")
+        st.write("Thanks for taking the time to learn a bit more about me!")
     with col_photo:
         st.image("https://github.com/maxwellknowles/portfolio/raw/main/_89A6473_DxO%20.jpg")
     resume = "https://github.com/maxwellknowles/portfolio/raw/main/Maxwell_Knowles_Resume_2022.pdf"
