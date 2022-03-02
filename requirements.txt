@@ -4,3 +4,5 @@ streamlit
 numpy
 datetime
 streamlit_option_menu
+requests
+googlesearch
