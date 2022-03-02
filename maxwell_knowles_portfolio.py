@@ -7,6 +7,9 @@ from datetime import datetime
 from streamlit_option_menu import option_menu
 import streamlit.components.v1 as html
 import urllib.request
+import requests
+from googlesearch import search
+
 
 with st.sidebar:
     choose = option_menu("Maxwell's Portfolio", ["Bio & Resume", "Prototypes & Tools", "Consulting with Eikona", "Just for Fun: Curated Search", "Contact"],
