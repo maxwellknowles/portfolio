@@ -292,7 +292,7 @@ if choose == "Just for Fun: Curated Search":
     website_list = pd.DataFrame(l, columns=['Websites'])
     selection = st.multiselect('Choose your favorite sites...',website_list['Websites'])
     web_list = pd.DataFrame(selection, columns=['Websites'])
-
+    reading_speed = 200
     def myfunction(query):
         st.subheader('Getting Google search results and length of articles...')
 
@@ -309,7 +309,7 @@ if choose == "Just for Fun: Curated Search":
             chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
             text = '\n'.join(chunk for chunk in chunks if chunk)
             text_list = text.split()
-            st.write(f"{j} {len(text_list)} words or roughly {len(text_list)//200} minutes")
+            st.write(f"{j} {len(text_list)} words or roughly {len(text_list)//reading_speed} minutes")
             words = len(text_list)
             minutes = words//200
             base0 = urlparse(j)
@@ -321,15 +321,7 @@ if choose == "Just for Fun: Curated Search":
         data = data.drop_duplicates(subset = ["Word Count"])
         data = data.reset_index(drop=True)
         
-        l = ["www.wsj.com", "www.huffpost.com","www.gutenberg.org","scholar.google.com","hbr.org","scholar.harvard.edu",
-        "www.theguardian.com","www.bloomberg.com","www.nytimes.com","www.forbes.com","angel.co",
-        "www.businessinsider.com","www.crunchbase.com","www.entrepreneur.com","techcrunch.com","hbr.org",
-        "www.mckinsey.com","stanford.edu","www.britannica.com","plato.stanford.edu","www.wordstream.com",
-        "www.inc.com","www.economist.com","medium.com","www.investopedia.com","www.gutenberg.org",
-        "www.lifehack.org","mashable.com", "www.fastcompany.com"]
-        
         st.subheader('Here are your recommendations...')
-        #website_list = pd.DataFrame(l)
         curated = pd.DataFrame([])
         for i in range(0,len(data)):
             if data['Base URL'][i] in web_list.values:
@@ -345,6 +337,7 @@ if choose == "Just for Fun: Curated Search":
     
     query = st.text_input('Your search...')
     query = str(query)
+    reading_speed = st.slider('How many words do you read per minute?', 50, 500, 200)
     if st.button('Submit query'):
         if len(query)>0:
             st.write('Query in progress...')
