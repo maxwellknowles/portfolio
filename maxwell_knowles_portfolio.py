@@ -10,7 +10,7 @@ import urllib.request
 import requests
 from googlesearch import search
 
-
+st.set_page_config(layout = "wide")
 with st.sidebar:
     choose = option_menu("Maxwell's Portfolio", ["Bio & Resume", "Prototypes & Tools", "Consulting with Eikona", "Just for Fun: Curated Search", "Contact"],
                          icons=['house', 'arrow-clockwise', 'activity', 'app', 'archive'],
@@ -335,10 +335,10 @@ if choose == "Just for Fun: Curated Search":
             pass
     
     query = st.text_input('Your search...')
+    query = str(query)
     if st.button('Submit query'):
         if len(query)>0:
             st.write('Query in progress...')
-            query = str(query)
             myfunction(query)
         else:
             st.write("Please type in a query first :)")
