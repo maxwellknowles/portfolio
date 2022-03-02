@@ -9,8 +9,8 @@ import streamlit.components.v1 as html
 import urllib.request
 
 with st.sidebar:
-    choose = option_menu("Maxwell's Portfolio", ["Bio & Resume", "Prototypes & Tools", "Consulting with Eikona", "Contact"],
-                         icons=['house', 'arrow-clockwise', 'activity', 'archive'],
+    choose = option_menu("Maxwell's Portfolio", ["Bio & Resume", "Prototypes & Tools", "Consulting with Eikona", "Just for Fun: Curated Search", "Contact"],
+                         icons=['house', 'arrow-clockwise', 'activity', 'app', 'archive'],
                          menu_icon="app-indicator", default_index=0,
                          styles={
         "container": {"padding": "5!important", "background-color": "#BBBBBD"},
@@ -268,7 +268,80 @@ if choose == "Consulting with Eikona":
         eikona_finances_graph = eikona_finances_graph.set_index('Year')
         st.line_chart(eikona_finances_graph)
 
+if choose == "Just for Fun: Curated Search":
+    st.title("Just for Fun: Curated Search")
+    st.write("This is a simple little tool that I created when I started practicing scripting in Python. I realized I was frustrated when I searched topics in business, tech, politics, or finance, because a) I didn't know how long the articles were before clicking and b) I couldn't narrow the results down to specific sites I liked.")
+    l = ["www.wsj.com", "www.huffpost.com","www.gutenberg.org","scholar.google.com","hbr.org","scholar.harvard.edu",
+        "www.theguardian.com","www.bloomberg.com","www.nytimes.com","www.forbes.com","angel.co",
+        "www.businessinsider.com","www.crunchbase.com","www.entrepreneur.com","techcrunch.com","hbr.org",
+        "www.mckinsey.com","stanford.edu","www.britannica.com","plato.stanford.edu","www.wordstream.com",
+        "www.inc.com","www.economist.com","medium.com","www.investopedia.com","www.gutenberg.org",
+        "www.lifehack.org","mashable.com", "www.fastcompany.com"]
+    website_list = pd.DataFrame(l, columns=['Websites'])
+    selection = st.multiselect('Choose your favorite sites...',website_list['Websites'])
+    web_list = pd.DataFrame(selection, columns=['Websites'])
 
+    def myfunction(query):
+        st.subheader('Getting Google search results and length of articles...')
+
+        # to search
+        data = pd.DataFrame([])
+
+        for j in search(query, tld="com", num=20, stop=20, pause=2):
+            r = requests.get(j)
+            soup = BeautifulSoup(r.text, features="html.parser")
+            for script in soup(["script", "style"]):
+                script.extract()
+            text = soup.get_text()
+            lines = (line.strip() for line in text.splitlines())
+            chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
+            text = '\n'.join(chunk for chunk in chunks if chunk)
+            text_list = text.split()
+            st.write(f"{j} {len(text_list)} words or roughly {len(text_list)//200} minutes")
+            words = len(text_list)
+            minutes = words//200
+            base0 = urlparse(j)
+            base1 = base0[1]
+            data = data.append(pd.DataFrame({'URL': j, 'Word Count': words, 'Reading Time': minutes, 'Base URL': base1}, index=[0]), ignore_index=True)
+        else:
+            pass
+        #print(f"Total: {words} words or roughly {minutes} minutes")
+        data = data.drop_duplicates(subset = ["Word Count"])
+        data = data.reset_index(drop=True)
+        
+        l = ["www.wsj.com", "www.huffpost.com","www.gutenberg.org","scholar.google.com","hbr.org","scholar.harvard.edu",
+        "www.theguardian.com","www.bloomberg.com","www.nytimes.com","www.forbes.com","angel.co",
+        "www.businessinsider.com","www.crunchbase.com","www.entrepreneur.com","techcrunch.com","hbr.org",
+        "www.mckinsey.com","stanford.edu","www.britannica.com","plato.stanford.edu","www.wordstream.com",
+        "www.inc.com","www.economist.com","medium.com","www.investopedia.com","www.gutenberg.org",
+        "www.lifehack.org","mashable.com", "www.fastcompany.com"]
+        
+        st.subheader('Here are your recommendations...')
+        #website_list = pd.DataFrame(l)
+        curated = pd.DataFrame([])
+        for i in range(0,len(data)):
+            if data['Base URL'][i] in web_list.values:
+                curated = curated.append(pd.DataFrame({'URL': data['URL'][i],'Word Count':data['Word Count'][i], 'Reading Time': data['Reading Time'][i], 'Base URL':data['Base URL'][i]}, index=[0]), ignore_index=True)
+                st.write(f"{data['URL'][i]} is {data['Word Count'][i]} words long, with an estimated reading time of {data['Reading Time'][i]} minutes")
+            else:
+                pass
+        
+        if len(curated) == 0:
+            st.write("Your selected sites weren't in the top search results — try adding sites to widen your recommendations :)")
+        else:
+            pass
+    
+    query = st.text_input('Your search...')
+    if st.button('Submit query'):
+        if len(query)>0:
+            st.write('Query in progress...')
+            query = str(query)
+            myfunction(query)
+        else:
+            st.write("Please type in a query first :)")
+    else:
+        pass
+        
 if choose == "Contact":
     st.title("Contact Information")
     linkedin = "https://www.linkedin.com/in/maxwell-knowles/"
