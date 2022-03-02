@@ -17,7 +17,7 @@ import requests
 from googlesearch import search
 
 
-st.set_page_config(layout = "wide")
+st.set_page_config(page_title="Maxwell Knowles Portfolio", page_icon=":star:", layout="wide",initial_sidebar_state="expanded")
 with st.sidebar:
     choose = option_menu("Maxwell's Portfolio", ["Bio & Resume", "Prototypes & Tools", "Consulting with Eikona", "Just for Fun: Curated Search", "Contact"],
                          icons=['house', 'arrow-clockwise', 'activity', 'app', 'archive'],
