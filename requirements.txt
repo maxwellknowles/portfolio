@@ -6,6 +6,4 @@ datetime
 streamlit_option_menu
 requests
 bs4
-googlesearch
-search
 googlesearch-python
