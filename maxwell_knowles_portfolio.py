@@ -290,15 +290,16 @@ if choose == "Just for Fun: Curated Search":
         "www.inc.com","www.economist.com","medium.com","www.investopedia.com","www.gutenberg.org",
         "www.lifehack.org","mashable.com", "www.fastcompany.com"]
     website_list = pd.DataFrame(l, columns=['Websites'])
-    selection = st.multiselect('Choose your favorite sites...',website_list['Websites'])
+    selection = st.multiselect("Choose the sites you prefer to be in your recommended list (if you don't have a preference, just leave blank and it'll filter using my list of favorite sites)",website_list['Websites'])
     web_list = pd.DataFrame(selection, columns=['Websites'])
+    if len(web_list) == 0:
+        web_list = website_list
     reading_speed = 200
     def myfunction(query):
         st.subheader('Getting Google search results and length of articles...')
 
         # to search
         data = pd.DataFrame([])
-
         for j in search(query, tld="com", num=20, stop=20, pause=2):
             r = requests.get(j)
             soup = BeautifulSoup(r.text, features="html.parser")
@@ -330,11 +331,23 @@ if choose == "Just for Fun: Curated Search":
             else:
                 pass
         
-        if len(curated) == 0:
-            st.write("Your selected sites weren't in the top search results — try adding sites to widen your recommendations :)")
-        else:
-            pass
+        #if len(curated) == 0:
+        #    st.write("Your selected sites weren't in the top search results — try adding sites to widen your recommendations :)")
+        #else:
+        #    pass
     
+    query = st.text_input('Your search...')
+    reading_speed = st.slider('How many words do you read per minute?', 50, 500, 200)
+    if st.button('Submit query'):
+        if len(query)>0:
+            st.write('Query in progress...')
+            query = str(query)
+            myfunction(query)
+        else:
+            st.write("Please type in a query first :)")
+    else:
+        pass
+
     query = st.text_input('Your search...')
     query = str(query)
     reading_speed = st.slider('How many words do you read per minute?', 50, 500, 200)
