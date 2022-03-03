@@ -349,18 +349,6 @@ if choose == "Just for Fun: Curated Search":
             st.write("Please type in a query first :)")
     else:
         pass
-
-    query = st.text_input('Your search...')
-    query = str(query)
-    reading_speed = st.slider('How many words do you read per minute?', 50, 500, 200)
-    if st.button('Submit query'):
-        if len(query)>0:
-            st.write('Query in progress...')
-            myfunction(query)
-        else:
-            st.write("Please type in a query first :)")
-    else:
-        pass
         
 if choose == "Contact":
     st.title("Contact Information")
