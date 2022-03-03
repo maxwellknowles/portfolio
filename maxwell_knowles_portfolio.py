@@ -294,6 +294,8 @@ if choose == "Just for Fun: Curated Search":
     web_list = pd.DataFrame(selection, columns=['Websites'])
     if len(web_list) == 0:
         web_list = website_list
+    else:
+        pass
     reading_speed = 200
     def myfunction(query):
         st.subheader('Getting Google search results and length of articles...')
