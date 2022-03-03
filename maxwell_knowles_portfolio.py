@@ -139,6 +139,8 @@ if choose == "Prototypes & Tools":
         glide = "www.glideapps.com"
         st.caption("Find more information on Glide [here](%s)" % glide)
     st.header("Tool: Zero Grocery Analytics Streamlit Web App")
+    analytics = "https://share.streamlit.io/maxwellknowles/analytics_web_app/main/analytics.py"
+    st.write("You can click through the anonymized version I coded [here](%s)" % analytics) 
     with st.expander("See details"):
         st.subheader("Purpose")
         st.write("To create the most comprehensive place for different teams to come and engage with data from three Shopify sites and inFlow.")
