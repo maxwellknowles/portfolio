@@ -32,7 +32,7 @@ with st.sidebar:
 
 if choose == 'Bio & Resume':
     st.title('Maxwell Knowles: Bio & Resume')
-    st.write("Hey there! Welcome to my portfolio of projects and tools I created with Python and Streamlit.")
+    st.write("Hey there! Welcome to my portfolio (created with Python and Streamlit).")
     st.write("I made this web app so friends, companies, and recruiters alike could see what I've been up to as a product manager, fan of data science, music maker, and javelin thrower.")
     col_photo, col_about = st.columns(2)
     with col_about:
