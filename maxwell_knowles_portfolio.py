@@ -19,8 +19,8 @@ from googlesearch import search
 
 st.set_page_config(page_title="Maxwell Knowles Portfolio", page_icon=":100:", layout="wide",initial_sidebar_state="expanded")
 with st.sidebar:
-    choose = option_menu("Maxwell's Portfolio", ["Bio & Resume", "Prototypes & Tools", "Consulting with Eikona", "Just for Fun: Curated Search", "Contact"],
-                         icons=['house', 'arrow-clockwise', 'activity', 'app', 'archive'],
+    choose = option_menu("Maxwell's Portfolio", ["Bio & Resume", "PM Product Example: Picker App", "PM Feature Example: Substitutions", "PM Hack Example: Glide Mobile App", "PM Data Example: Streamlit Analytics Web App", "Startup Consulting: Eikona", "Just for Fun: Curated Search", "Contact"],
+                         icons=['house', 'kanban', 'kanban', '123', '123', 'activity', 'apple', 'archive'],
                          menu_icon="app-indicator", default_index=0,
                          styles={
         "container": {"padding": "5!important", "background-color": "#BBBBBD"},
@@ -44,7 +44,7 @@ if choose == 'Bio & Resume':
     resume = "https://github.com/maxwellknowles/portfolio/raw/main/Maxwell_Knowles_Resume_2022.pdf"
     st.write("[Download Resume](%s)" % resume)
     with st.expander("See Resume"):
-            st.image("https://github.com/maxwellknowles/portfolio/raw/main/resume.png")
+        st.image("https://github.com/maxwellknowles/portfolio/raw/main/resume.png")
 
     st.header('Work Experience')
     st.subheader("Zero Grocery")
@@ -99,7 +99,7 @@ if choose == 'Bio & Resume':
     st.subheader("CMS Track & Field")
     st.markdown("**Javelin Thrower** _(January 2017 - Present)_")
     with st.expander("See details"):
-        st.write("• Returned to Claremont for the 2022 season to compete with final year of NCAA athletic eligibility, ranked #4 in school history in the javelin throw")
+        st.write("• Returned to Claremont for the 2022 season to compete with final year of NCAA athletic eligibility, ranked #4 in school history in the javelin throw and a member of the CMS Wall of Fame")
         st.write("• Voted Men’s Team Captain and nominated for CMS Junior Athlete of the Year in 2019")
         st.write("• SCIAC Champion (2019), USTFCCCA All-West Region honoree (2019), USTFCCCA All-Academic (2019), and NCAA Qualifier, ranking 12th in DIII nationally in 2019")
 
@@ -109,57 +109,95 @@ if choose == 'Bio & Resume':
     spotify = "https://open.spotify.com/artist/2p2YiVrDP0scQefeefDqCO?si=b7X6T-Y1Q6eG6DwsPTKbyg"
     st.write("[Visit my Spotify!](%s)" % spotify)
 
-if choose == "Data-Intensive Work":
-    st.title("Data-Intensive Work")
-    st.header('Churn Analysis Report Coded in R')
-    with st.expander("See Report"):
-        st.image("https://github.com/maxwellknowles/portfolio/raw/main/CancellationReport1.png")
-        st.image("https://github.com/maxwellknowles/portfolio/raw/main/CancellationReport2.png")
-        st.image("https://github.com/maxwellknowles/portfolio/raw/main/CancellationReport3.png")
-        st.image("https://github.com/maxwellknowles/portfolio/raw/main/CancellationReport4.png")
-    st.header('Renewal Mill Mock Vendor Report Coded in R')
-    with st.expander("See Report"):
-        st.image("https://github.com/maxwellknowles/portfolio/raw/main/renewal1.png")
-        st.image("https://github.com/maxwellknowles/portfolio/raw/main/renewal2.png")
-        st.image("https://github.com/maxwellknowles/portfolio/raw/main/renewal3.png")
-    
+if choose == "PM Product Example: Picker App":
+    st.title("PM Product Example: Picker App")
+    st.header("Transforming Zero's Picker App: From Low-Code Prototype to React App")
+    st.subheader("Some Context")
+    st.write("Zero Grocery opened a central distribution warehouse in Fresno, CA and spent a few months experimenting with picking all orders in Fresno, then sending these orders to the local markets (the Bay Area and Los Angeles). The warehouse was massive, placing incredible strain on a picker physically and dramatically slowing down Zero's average pick time per order.")
+    st.subheader("The Prototype")
+    st.write("With sparse Engineering resources, I was asked to lead a small trio (consisting of myself, a data scientist, and an operations associate) to build a functional prototype that we could iterate and use to collect data before working with Engineering on a proper build. After a few hours considering our options, we landed on what was dubbed the 'Mongo loop' approach.")
+    st.write("I asked our data scientist to write a Python script that pulled order data from MongoDB, which I then modified to populate a Google Sheet directly. The operations associate had mapped out the warehouse to assign items a 'grid' position in the warehouse to order steps more efficiently. This grid data could be associated with each item found in our data scientist's script. I then formatted the spreadsheets so that a Glide app could be used to interact with the data, with picker actions providing us with the actual picked levels for items listed in orders. After picking with the app was concluded for the day, a single spreadsheet could be read from using a second Pytho script, modifying the relevant orders in MongoDB appropriately.")
+    st.write("Although quite hacky, this prototype was functional enough to pick dozens of orders. We could see the benefits of a grid position, take notes on UI/UX, and log pick times with orders of different sizes. This built conviction within the Product, Operations, and Engineering teams, leading to a full build with software engineers.")
+    picker_app_prototype = "https://youtu.be/ZtvJVsx77V4"
+    st.video(picker_app_prototype)
+    st.subheader("The Picker App Build")
+    st.write("With use of the prototype showing significantly lower pick times, I was asked to work with two software engineers (one BE and one FE) to go about a proper build. This app was optimized for picking on a tablet and manager assignment on desktop. We implemented the major features that proved so useful in the prototype — dividing up orders into cold and dry components and providing grid position — and added in color coding by pick status to help pickers visually. Further, we built with future features in mind, including substitutions, so implementation could be fast and effective.")
+    st.subheader("Outcomes")
+    st.markdown("_Picker accuracy remained strong, **average pick times were cut by 40%**, and we were able to easily layer in substitution as a feature months later_.")
+    picker_app_react = "https://youtu.be/qNePEABFlXU"
+    st.video(picker_app_react)
 
-if choose == "Prototypes & Tools":
-    st.title("Prototypes & Tools")
+if choose == "PM Feature Example: Substitutions":
+    st.title("PM Feature Example: Substitutions")
+    st.header("An Exercise In Adapting")
+    st.subheader("Some Context")
+    substitution_study_interviews = "https://github.com/maxwellknowles/portfolio/raw/main/substitutions/Screen%20Shot%202022-03-02%20at%208.22.39%20PM.png"
+    substitution_study_plan = "https://github.com/maxwellknowles/portfolio/raw/main/substitutions/Screen%20Shot%202022-03-02%20at%208.39.02%20PM.png"
+    substitution_study_prd_prep = "https://github.com/maxwellknowles/portfolio/raw/main/substitutions/Screen%20Shot%202022-03-02%20at%208.39.55%20PM.png"
+    miro = "https://github.com/maxwellknowles/portfolio/raw/main/substitutions/Screen%20Shot%202022-02-28%20at%201.35.05%20PM%20(1).png"
+    competitors = "https://github.com/maxwellknowles/portfolio/raw/main/substitutions/Screen%20Shot%202022-02-28%20at%201.35.29%20PM%20(1).png"
+    st.write("In the grocery delivery market, offering substitutions for out of stock (OOS) products is commonplace. It can make customers happier and preserves revenue for the stores and delivery services. The way individual players have decided to attack this problem, however, varies. At Zero, we wanted to know how we could transform our approach at the time — a consumer opt-in for best-effort substitutes — into something truly delightful on the consumer side while still being practical operationally.")
+    col_plan, col_plan_words = st.columns(2)
+    col_interview_words, col_interview = st.columns(2)
+    col_prd, col_prd_words = st.columns(2)
+    with col_plan:
+        st.image(substitution_study_plan)
+    with col_plan_words:
+        st.subheader("The Plan")
+        st.write("I worked with Zero's user researcher at the time to establish a plan of attack for rapid research. We would interview customers and Zero Operations leadership, as well as conduct some competitive market research to see what options and UI/UX were predominate.")
+        st.image(competitors)
+        st.caption("A market landscape matrix (the goal was to enter the upper-left quadrant).")
+    with col_interview_words:
+        st.subheader("The Execution")
+        st.write("We successfully completed interviews with eight Zero customers, an operations manager, and a warehouse lead, identifying pain points in the user experience on our website and with our fulfillment tech as it stood then. We had the following main takeaways...")
+        st.write("**For Zero Operations**")
+        st.write("• Pickers needed to have defined lists of what could or could not be substituted for a given product (a _data_ issue)")
+        st.write("• It wasn't obvious to the folks checking picker work that an item had been substituted (a _UI/UX_ issue).")
+        st.write("• There was concern around how a customer's subtotal may fluctuate with substitutions (an _ethics_ issue).")
+        st.write("**For Zero Customers**")
+        st.write("• No email or SMS notification when substitutions happen (a _communication_ issue)")
+        st.write("• Many customers weren't even seeing or engaging with the substitution checkbox in our current checkout experience (a _UI/UX_ issue)")
+        st.write("• Many customers complained about the quality or relevancy of the items pickers had chosen as substitutes (a _picking_ issue)")
+        st.write("• Some customers, especially those with dietary restrictions, cared about curating their substitutions, while others simply wanted to say 'YES' or 'NO' (an _adaptability_ issue)")
+    with col_interview:
+        st.image(substitution_study_interviews)
+        st.caption("An interview database we made in Notion.")
+        st.image(miro)
+        st.caption("Little notes from customer interviews were made in Miro, allowing us to cluster the notes thematically and distill major takeaways.")
+    with col_prd:
+        st.image(substitution_study_prd_prep)
+        st.caption("A cut from a 'PRD Prep' doc with research and product recommendations. I drafted, refinded, and shared this doc to get stakeholder buy-in before moving forward with engineering.")
+    with col_prd_words:
+        st.subheader("Our Recommendation")
+        st.write("We ultimately landed on a 'paved path' approach (referring to how it guided both customers and pickers) to substitutions, providing a binary YES/NO option for customers that would make each item in a _defined list of potential substitutions_ visible for pickers on their end, **_but_** if a customer cared to narrow this list, they could simply de-select one or multiple options.")
+    st.subheader("Adapting & Winning Back Revenue")
+    st.write("As often happens with an early-stage startup, priorities changed and substitutions needed to be pushed off the roadmap for months. The website needed other attention and Zero operations were evolving rapidly as we scaled.")
+    st.write("As the dust settled, however, out-of-stocks continued to be a troublesome issue and we weren't capturing the revenue we could be. This led me to work with a software engineer on a rapid, de-scoped version of our substitutions recommendation, bringing back the default YES/NO for customers, but associating a list of one to four substitutions for each eligible item that would be visible on the picker's end (preventing poor substitutions, the primary customer issue). The work could be boiled down to some data model changes and fairly light additions to the picker app.")
+    st.write("Although continuing to develop the customer-facing experience is important, this was another example of our Product and Engineering teams adapting quickly but thoughtfully. The de-scoped build took a matter of days and allowed us to win back 20 percent of the revenue we would have otherwise lost from out-of-stocks.")
+
+if choose == "PM Hack Example: Glide Mobile App":
+    st.title("PM Hack Example: Glide Mobile App")
     st.write("During my time working in Product at Zero Grocery (an early-stage startup), I quickly learned the value of being able to rapidly spin up low or no-code solutions for ad hoc and isolated issues in order to keep our lean team of software engineers on our established roadmap. Engineering at a startup is often a precious resource, and I have embraced the challenge of both becoming a more technical PM and utilizing low-code resources — such as Streamlit and Glide Apps — to solve business problems.")
-
     st.header("Tool: Stock Verification")
-    with st.expander("See details"):
-        st.subheader("Purpose")
-        st.write("Allow operations and merchandising leads to verify stock levels for items marked out-of-stock as pickers fulfill orders.")
-        st.subheader("How It Works")
-        st.write("I wrote a Python script that filtered orders on their packing status, checked each item in each relevant order for a 'not_packaged' attribute, then uploaded a dataframe of out-of-stock items in in-progress orders to Google Sheets. I deployed the script in GCP, then used the Google Cloud Scheduler to automate running the script every 5 minutes, allowing our team to adapt in real-time. Finally, I used one of my favorite no-code solutions, Glide Apps, to create an easy mobile UI for teammates to find and sort the relevant data. Glide treats spreadsheets like a database, so as long my GCP function continued to update the data in Google Sheets, app users would have a constant flow of accurate and actionable information.")
-        st.subheader("Screen Recorded Walkthrough")
-        st.video("https://youtu.be/NEJvjzBdl9k")
-        glide = "www.glideapps.com"
-        st.caption("Find more information on Glide [here](%s)" % glide)
-    st.header("Tool: Zero Grocery Analytics Streamlit Web App")
+    st.subheader("Purpose")
+    st.write("Allow operations and merchandising leads to verify stock levels for items marked out-of-stock as pickers fulfill orders.")
+    st.subheader("How It Works")
+    st.write("I wrote a Python script that filtered orders on their packing status, checked each item in each relevant order for a 'not_packaged' attribute, then uploaded a dataframe of out-of-stock items in in-progress orders to Google Sheets. I deployed the script in GCP, then used the Google Cloud Scheduler to automate running the script every 5 minutes, allowing our team to adapt in real-time. Finally, I used one of my favorite no-code solutions, Glide Apps, to create an easy mobile UI for teammates to find and sort the relevant data. Glide treats spreadsheets like a database, so as long my GCP function continued to update the data in Google Sheets, app users would have a constant flow of accurate and actionable information.")
+    st.subheader("Screen Recorded Walkthrough")
+    st.video("https://youtu.be/NEJvjzBdl9k")
+    glide = "www.glideapps.com"
+    st.caption("Find more information on Glide [here](%s)" % glide)
+
+if choose == 'PM Data Example: Streamlit Analytics Web App':
+    st.header("PM Data Example: Streamlit Analytics Web App")
     analytics = "https://share.streamlit.io/maxwellknowles/analytics_web_app/main/analytics.py"
-    st.write("You can click through the anonymized version I coded [here](%s)" % analytics) 
-    with st.expander("See details"):
-        st.subheader("Purpose")
-        st.write("To create the most comprehensive place for different teams to come and engage with data from three Shopify sites and inFlow.")
-        st.subheader("How It Works")
-        st.write("I wrote a Python script that pulled in data from spreadsheets (which were populated with GCP functions that interacted with Shopify and inFlow at set intervals, preventing us from hitting API call limits). I then used the Streamlit library to present this data in a user-friendly manner, organizing the data thematically and implementing charts, maps, rankings, and k-means clustering.")
-        st.subheader("Screen Recording")
-        st.video("https://youtu.be/vn3SJHaw4tM")
-
-#if choose == "Product & Feature Examples":
-#   st.title("Product & Feature Examples")
-#    st.header("Implementing Delivery Windows: An Early & Adaptable Solution at Zero Grocery")
-#    st.subheader("")
-#    st.write("To create the most comprehensive place for different teams to come and engage with data from three Shopify sites and inFlow.")
-#    st.subheader("Product Considerations")
-#    st.write("To create the most comprehensive place for different teams to come and engage with data from three Shopify sites and inFlow.")
-#    st.subheader("Tackling the Problem")
-#    st.write("To create the most comprehensive place for different teams to come and engage with data from three Shopify sites and inFlow.")
-
-#    st.header("The Picker App: A Solution for Zero")
+    st.write("To click through an anonymized version of the analytics web app, click [here](%s)!" % analytics) 
+    st.subheader("Purpose")
+    st.write("To create the most comprehensive place for different teams (Operations, Growth, Merchandising, etc.) to come and engage with data from three Shopify sites and inFlow.")
+    st.subheader("How It Works")
+    st.write("I wrote a Python script that pulled in data from spreadsheets (which were populated with GCP functions that interacted with Shopify and inFlow at set intervals, preventing us from hitting API call limits). I then used the Streamlit library to present this data in a user-friendly manner, organizing the data thematically and implementing charts, maps, rankings, and k-means clustering.")
+    st.subheader("Screen Recording")
+    st.video("https://youtu.be/vn3SJHaw4tM")
 
 if choose == "Consulting with Eikona":
     st.title("Consulting with Eikona")
