@@ -199,8 +199,9 @@ if choose == 'PM Data Example: Streamlit Analytics Web App':
     st.subheader("Screen Recording")
     st.video("https://youtu.be/vn3SJHaw4tM")
 
-if choose == "Consulting with Eikona":
-    st.title("Consulting with Eikona")
+if choose == "Startup Consulting: Eikona":
+    st.title("Startup Consulting: Eikona")
+    st.header("Product & Business Model Development")
     eikona_link = "eikona.art"
     eikona_streamlit_app = "https://share.streamlit.io/maxwellknowles/eikona/main/eikona_projection.py"
     st.write("Eikona — [a startup](%s) working at the nexus of gaming and NFTs — is currently preparing to pitch to angel investors. I've served as a product and strategy consultant on the project, collaborating with the founder on this Streamlit app serving as one tool in developing and visualizing Eikona's financial projections." % eikona_link)
