@@ -16,9 +16,6 @@ from urllib.error import URLError
 import requests
 from googlesearch import search
 
-from sklearn.cluster import KMeans
-from sklearn.preprocessing import StandardScaler
-from kneed import KneeLocator
 import matplotlib.pyplot as plt
 from math import e
 
