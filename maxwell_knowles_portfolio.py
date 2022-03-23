@@ -16,10 +16,15 @@ from urllib.error import URLError
 import requests
 from googlesearch import search
 
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import StandardScaler
+from kneed import KneeLocator
+import matplotlib.pyplot as plt
+from math import e
 
 st.set_page_config(page_title="Maxwell Knowles Portfolio", page_icon=":100:", layout="wide",initial_sidebar_state="expanded")
 with st.sidebar:
-    choose = option_menu("Maxwell's Portfolio", ["Bio & Resume", "PM Product Example: Picker App", "PM Feature Example: Substitutions", "PM Hack Example: Glide Mobile App", "PM Data Example: Streamlit Analytics Web App", "Startup Consulting: Eikona", "Just for Fun: Curated Search", "Contact"],
+    choose = option_menu("Maxwell's Portfolio", ["Bio & Resume", "PM Product Example: Picker App", "PM Feature Example: Substitutions", "PM Hack Example: Glide Mobile App", "PM Data Example: Streamlit Analytics Web App", "Consulting: AR-Based NFT Gaming Startup", "Just for Fun: Curated Search", "Contact"],
                          icons=['house', 'kanban', 'kanban', '123', '123', 'activity', 'apple', 'archive'],
                          menu_icon="app-indicator", default_index=0,
                          styles={
@@ -32,7 +37,7 @@ with st.sidebar:
 
 if choose == 'Bio & Resume':
     st.title('Maxwell Knowles: Bio & Resume')
-    st.write("Hey there! Welcome to my portfolio (created with Python and Streamlit).")
+    st.write("Hey there! Welcome to my portfolio of projects and tools I created with Python and Streamlit.")
     st.write("I made this web app so friends, companies, and recruiters alike could see what I've been up to as a product manager, fan of data science, music maker, and javelin thrower.")
     col_photo, col_about = st.columns(2)
     with col_about:
@@ -48,7 +53,7 @@ if choose == 'Bio & Resume':
 
     st.header('Work Experience')
     st.subheader("Zero Grocery")
-    st.markdown("**Product Manager** _(August 2021 - Present)_")
+    st.markdown("**Product Manager** _(August 2021 - March 2022)_")
     with st.expander("See details"):
         st.write("• Scaffolded and led release strategy for Zero’s first delivery windows option, allowing Zero to offer the feature on selected days and regions to ensure a safe, cost-sensitive, and customer-pleasing rollout")
         st.write("• Led development of substitutions feature, winning back 20 percent of potential out-of-stock revenue loss")
@@ -86,6 +91,8 @@ if choose == 'Bio & Resume':
     st.header('Education')
     st.subheader("Claremont Graduate University")
     st.markdown("**Certificate in Entrepreneurship** _(May 2022)_")
+    with st.expander("Selected coursework"):
+        st.write("Entrepreneurial Finance, Startup Business Models")
     st.subheader("Claremont McKenna College")
     st.markdown("**BA in Philosophy, Politics, and Economics** _(December 2020)_")
     with st.expander("Senior Thesis"):
@@ -93,7 +100,7 @@ if choose == 'Bio & Resume':
         st.write("[_Populism: An Exploration into the American Case Through the Academic Literature, Data Analysis, and Fiction_](%s)" % thesis)
         st.write("The twenty-first century has seen a rise in populist leadership and rhetoric throughout the globe, with the United States standing as one powerful case. This thesis hopes to develop the “story” of populism from multiple perspectives, attempting to not only inform but change the way we approach the populist movement in America, and perhaps, the world. In Part I, I summarize and blend much of the core literature written on populism and economic change, developing the story that populism in America today has its roots in the significant techno-economic and cultural paradigmatic shifts of the 1970s. Social media and an evolving political philosophy, particularly among the youth, are also explored. In Part II, I iterate multiple predictive data models using roughly 20 dimensions of democratic and economic life in the United States as independent variables, with different definitions of populism as the dependent variable. I find — counter to what the aforementioned literature might imply — that increasing unemployment is negatively correlated with populist leadership (at a significance level of 0.05, no less), while the “civil society organization participatory environment” and “social class equality in civil liberty” variables are positively correlated, corresponding conceptually with the literature. Finally, Part III is a creative work — The Mind of Demos — in which a fictional college student allegorizes the rise and nature of populism in six cantos, complete with two fictional commentaries and a forward by a fictional professor from the future.")
     with st.expander("Selected coursework"):
-        st.write("The Politics of the Gig Economy, Data Science & Statistical Learning, The Idea of Poetry, 7 Steps to Startup, Entrepreneurial Finance, Startup Business Models")
+        st.write("The Politics of the Gig Economy, Data Science & Statistical Learning, The Idea of Poetry")
 
     st.header("Athletics") 
     st.subheader("CMS Track & Field")
@@ -199,127 +206,353 @@ if choose == 'PM Data Example: Streamlit Analytics Web App':
     st.subheader("Screen Recording")
     st.video("https://youtu.be/vn3SJHaw4tM")
 
-if choose == "Startup Consulting: Eikona":
-    st.title("Startup Consulting: Eikona")
-    st.header("Product & Business Model Development")
-    eikona_link = "eikona.art"
-    eikona_streamlit_app = "https://share.streamlit.io/maxwellknowles/eikona/main/eikona_projection.py"
-    st.write("Eikona — [a startup](%s) working at the nexus of gaming and NFTs — is currently preparing to pitch to angel investors. I've served as a product and strategy consultant on the project, collaborating with the founder on this Streamlit app serving as one tool in developing and visualizing Eikona's financial projections." % eikona_link)
-    st.write("You can see the latest Streamlit app for Eikona [here](%s)." % eikona_streamlit_app)
+if choose == "R Analysis Samples":
+    st.title("Data-Intensive Work")
+    st.header('Churn Analysis Report Coded in R')
+    with st.expander("See Report"):
+        st.image("https://github.com/maxwellknowles/portfolio/raw/main/CancellationReport1.png")
+        st.image("https://github.com/maxwellknowles/portfolio/raw/main/CancellationReport2.png")
+        st.image("https://github.com/maxwellknowles/portfolio/raw/main/CancellationReport3.png")
+        st.image("https://github.com/maxwellknowles/portfolio/raw/main/CancellationReport4.png")
+    st.header('Renewal Mill Mock Vendor Report Coded in R')
+    with st.expander("See Report"):
+        st.image("https://github.com/maxwellknowles/portfolio/raw/main/renewal1.png")
+        st.image("https://github.com/maxwellknowles/portfolio/raw/main/renewal2.png")
+        st.image("https://github.com/maxwellknowles/portfolio/raw/main/renewal3.png")
 
-    #data
-    coinbase_users = pd.read_csv("https://raw.githubusercontent.com/maxwellknowles/eikona/main/coinbase_users.csv")
+if choose == "Consulting: AR-Based NFT Gaming Startup":
+    #-------------------------
+    #Main Menu Sidebar -- CONFIG
+    #-------------------------
+    eikona_choice = option_menu("Consulting: AR-Based NFT Gaming Startup", ["Industry User Growth", "Tokenomics & Business Model"],
+                        icons=['activity', '123'],
+                        menu_icon="calculator", default_index=0, orientation="horizontal",
+                        styles={
+    "container": {"padding": "5!important", "background-color": "#BBBBBD"},
+    "icon": {"color": "white", "font-size": "25px"}, 
+    "nav-link": {"font-size": "16px", "text-align": "left", "margin":"0px", "--hover-color": "#eee"},
+    "nav-link-selected": {"background-color": "#BBBBBD"},})
+
+    ##data
+    coinbase_users_historic = pd.read_csv("https://raw.githubusercontent.com/maxwellknowles/eikona/main/coinbase_users.csv")
     pokemongo_users = pd.read_csv("https://raw.githubusercontent.com/maxwellknowles/eikona/main/pg_users.csv")
 
-    st.title('Eikona Model')
-    st.header('Early Prototype')
+    #####
+    ##Variables/Default values - PreCache
+    #####
 
-    col1, col2 = st.columns(2)
+    ###Calculating TPM
+    interval_of_users = 50
+    p_coefficient = float(0.006)
+    q_coefficient = float(0.410)
 
-    with col1:
-        cb_historic_rate = ((coinbase_users['Coinbase Users'][len(coinbase_users)-1]-coinbase_users['Coinbase Users'][0])/coinbase_users['Coinbase Users'][0])/8
-        cb_historic_rate = str(round(cb_historic_rate*100))+" %"
-        st.write('Coinbase Average Annual User Growth (2014-2021):', cb_historic_rate)
-        cb_growth = st.slider('Estimated YoY Growth (%) for Coinbase Users from 2022 Onward...', -100, 1000, 100)
-        cb_growth = cb_growth*0.01
-        l = []
-        for i in range(1,5):
-            year = str(2021+i)
-            cb_users = round(56*(1+cb_growth)**i)
-            tup=(year, cb_users)
-            l.append(tup)
-        cb_projected = pd.DataFrame(l, columns=['Year','Coinbase Users'])
-        coinbase_users = coinbase_users.append(cb_projected, ignore_index=True)
-        l = []
-        for i in coinbase_users.iterrows():
-            year = datetime.strptime(str(i[1]['Year']),"%Y")
-            cb_users = i[1]['Coinbase Users']
-            tup=(year, cb_users)
-            l.append(tup)
-        coinbase_users = pd.DataFrame(l, columns=['Year','Coinbase Users'])
-        coinbase_users = coinbase_users.set_index('Year')
+    #Define Bass Diffusion Model Function first here for efficiency
+    def get_bass_model(p, q, M, period = 30):
+
+        # Initializing the arrays
+        A = [0] * period
+        R = [0] * period
+        F = [0] * period
+        N = [0] * period
+
+        # One important thing to note, is that the time period we start from is t = 0.
+        # In many articles, you will see time starting from t = 1. They are both the
+        # same for all intents and purposes. Starting with t = 0 makes life easier in
+        # python, as indexing in python starts from 0 too.
+
+        # We start with A(0) =0, and build up the values for t = 0 from the equations
+        # formulated
+        A[0] = 0
+        R[0] = M
+        F[0] = p
+        N[0] = M*p
+
+        # Recursion starts from next time step
+        t = 1
+
+        # Creating a helper function for recursion
+        def get_bass_model_helper(A, R, F, N, t):
+
+            # If we have reached the final period, return the values
+            if t == period:
+                return N, F, R, A
+            else:
+
+                # Else, just compute the values for t
+                A[t] = N[t-1] + A[t-1]
+                R[t] = M - A[t]
+                F[t] = p + q * A[t]/M
+                N[t] = F[t] * R[t]
+
+                # compute values for the next time step
+                return get_bass_model_helper(A, R, F, N, t+1)
+
+        N, F, R, A = get_bass_model_helper(A, R, F, N, t)
+
+        # Converting to numpy arrays and returning.
+        return np.array(N), np.array(A)
+
+    #-------------------------
+    #Business Model
+    #-------------------------
+    if eikona_choice == "Industry User Growth":
+        eikona_link = "eikona.art"
+        eikona_streamlit_app = "https://share.streamlit.io/eikona-patunga/eikona-analytics/main/eikona_pitch.py"
+        st.subheader("_Some Context_")
+        st.write("Eikona — [a startup](%s) working at the nexus of AR gaming and NFTs — is currently pitching to incubators and early-stage investors. I've provided hours in product and strategy on the project, collaborating with the founder on this Streamlit app to serve as one tool in developing and visualizing Eikona's tokenomics and business model." % eikona_link)
+        st.write("You can see the latest Streamlit app for Eikona [here](%s)." % eikona_streamlit_app)
+        st.title("Industry User Growth")
+        st.header('_Crypto & AR-Gaming_')
+
+        col1, col2 = st.columns(2)
+
+        #################
+        ###Industry Growth
+        # Coinbase YoY -- millions
+        ###Changeables/Sliders:
+        # - Estimated YoY Growth% from 2022 Onward
+        #################
+
+        with col1:
+            cb_historic_rate = ((coinbase_users_historic['Coinbase Users'][len(coinbase_users_historic)-1]-coinbase_users_historic['Coinbase Users'][0])/coinbase_users_historic['Coinbase Users'][0])/8
+            cb_historic_rate = str(round(cb_historic_rate*100))+" %"
+            st.write('Coinbase Average Annual User Growth (2014-2021):', cb_historic_rate)
+            cb_growth = st.slider('Estimated YoY Growth (%) for Coinbase Users from 2022 Onward...', -100, 1000, 100)
+            cb_growth = cb_growth*0.01
+            l   = []
+            for i in range(1,5):
+                year = str(2021+i)
+                cb_users = round(56*(1+cb_growth)**i)
+                tup=(year, cb_users)
+                l.append(tup)
+            cb_projected = pd.DataFrame(l, columns=['Year','Coinbase Users'])
+            coinbase_users = coinbase_users_historic.append(cb_projected, ignore_index=True)
+            l = []
+            for i in coinbase_users.iterrows():
+                year = datetime.strptime(str(i[1]['Year']),"%Y")
+                cb_users = i[1]['Coinbase Users']
+                tup=(year, cb_users)
+                l.append(tup)
+            coinbase_users = pd.DataFrame(l, columns=['Year','Coinbase Users'])
+            coinbase_users = coinbase_users.set_index('Year')
 
 
-        st.subheader('Coinbase Users (in millions)')
-        st.line_chart(coinbase_users)
+            st.subheader('Coinbase Users (in millions)')
+            st.line_chart(coinbase_users)
 
-    with col2:
-        pg_historic_rate = ((pokemongo_users['PG Users'][len(pokemongo_users)-1]-pokemongo_users['PG Users'][1])/pokemongo_users['PG Users'][1])/4
-        pg_historic_rate = str(round(pg_historic_rate*100))+" %"
-        st.write('Pokemon Go Average Annual User Growth (2017-2020):', pg_historic_rate)
-        pg_growth = st.slider('Estimated YoY Growth (%) for Pokemon Go Users from 2021 Onward...', -100, 1000, 40)
-        pg_growth = pg_growth*0.01
-        l = []
-        for i in range(1,6):
-            year = str(2020+i)
-            pg_users = round(166*(1+pg_growth)**i)
-            tup=(year, pg_users)
-            l.append(tup)
-        pg_projected = pd.DataFrame(l, columns=['Year','PG Users'])
-        pokemongo_users = pokemongo_users.append(pg_projected, ignore_index=True)
-        l = []
-        for i in pokemongo_users.iterrows():
-            year = datetime.strptime(str(i[1]['Year']),"%Y")
-            pg_users = i[1]['PG Users']
-            tup=(year, pg_users)
-            l.append(tup)
-        pokemongo_users = pd.DataFrame(l, columns=['Year','PG Users'])
-        pokemongo_users = pokemongo_users.set_index('Year')
+        #################
+        ###Industry Growth
+        # Pokemon YoY -- millions
+        ###Changeables/Sliders:
+        # - Estimated YoY Growth% from 2022 Onward
+        #################
+
+        with col2:
+            pg_historic_rate = ((pokemongo_users['PG Users'][len(pokemongo_users)-1]-pokemongo_users['PG Users'][1])/pokemongo_users['PG Users'][1])/4
+            pg_historic_rate = str(round(pg_historic_rate*100))+" %"
+            st.write('Pokemon GO Average Annual User Growth (2017-2020):', pg_historic_rate)
+            pg_growth = st.slider('Estimated YoY Growth (%) for Pokemon GO Users from 2021 Onward...', -100, 1000, 40)
+            pg_growth = pg_growth*0.01
+            l = []
+            for i in range(1,6):
+                year = str(2020+i)
+                pg_users = round(166*(1+pg_growth)**i)
+                tup=(year, pg_users)
+                l.append(tup)
+            pg_projected = pd.DataFrame(l, columns=['Year','PG Users'])
+            pokemongo_users = pokemongo_users.append(pg_projected, ignore_index=True)
+            l = []
+            for i in pokemongo_users.iterrows():
+                year = datetime.strptime(str(i[1]['Year']),"%Y")
+                pg_users = i[1]['PG Users']
+                tup=(year, pg_users)
+                l.append(tup)
+            pokemongo_users = pd.DataFrame(l, columns=['Year','PG Users'])
+            pokemongo_users = pokemongo_users.set_index('Year')
+
+            st.subheader('Pokemon GO Users (in millions)')
+            st.line_chart(pokemongo_users)
+
+        #-------------------------
+        ###Business Model Sidebar -- Calculating TPM
+
+        st.title('Bassian Diffusion: Exploring the Market Opportunity')
+
+        col3, col4 = st.columns(2)
+
+        with col3:
+            image = "https://raw.githubusercontent.com/Eikona-Patunga/eikona-analytics/main/BASS.png?token=GHSAT0AAAAAABRWO7YDPLQFWEAZLWJWTWSAYR3NLCQ"
+            st.image(image)
+
+        with col4:
+            st.write('**Bassian Diffusion of Innovaton Adoption** is a widely-accepted sociological phenomenon, successfully modeling the rate of adoption or growth for everything from Twitter trends to users of new devices.')
+            st.write("Eikona is keen on understanding how the crypto space will evolve, what the ultimate market opportunity is, and how our unique positioning might unlock the most aggressive share of that market opportunity. As an exercise to evaluate crypto adoption, we've set the default values of the _p-coefficient_ (adoption), _q-coefficient_ (imitation), and industry size of the Bass model below to match the user adoption of Coinbase through 2021.")
+            st.write("Based on this analysis, we believe we are only now transitioning from the **_early adopters_** to the **_early majority_**, making Eikona's method and mission of tackling widespread adoption through a _safe_, _simple_, and _fun_ experience not only unique, but _**timely**_. We are built for this moment.")
         
-        st.subheader('Pokemon Go Users (in millions)')
-        st.line_chart(pokemongo_users)
+        st.subheader("Using Coinbase users as a proxy for crypto adoption in light of Bass diffusion...")
+        col5, col6 = st.columns(2)
 
-    #st.subheader('Estimated Users in NFT Space')
+        with col5:
+            #Setting Up Sliders
+            industry_size = st.slider('Select Industry Size by 2040 (IN BILLIONS)', min_value = 0.1, max_value = 5.5,value = 1.0, step = 0.01)
 
-    st.header('Eikona Financial Projections: Early and Terminal')
-    st.subheader('Eikona early projections, starting with an estimated 1000 core users by end of 2022...')
-    col3, col4 = st.columns(2)
-    with col3:
-        eikona_growth = st.slider('Estimate YoY Growth (%) for Eikona Users from 2023 to 2025', 0, 1000, 500)
-        eikona_growth = eikona_growth*0.01
-        l = []
-        for i in range(0,4):
-            year = datetime.strptime(str(2022+i),"%Y")
-            eikona_users = 1000*(1+eikona_growth)**i
-            tup=(year, eikona_users)
-            l.append(tup)
-        eikona_projected = pd.DataFrame(l, columns=['Year','Projected Eikona Users'])
-        eikona_projected = eikona_projected.set_index('Year')
+            p_coefficient = st.slider('P Coefficient: Innovation', min_value = 0.001, max_value = 0.050, value = p_coefficient, step = 0.005)
+            q_coefficient = st.slider('Q Coefficient: Imitation', min_value = 0.250, max_value = 0.550, value = q_coefficient, step = 0.005)
+            period = st.slider('Period of time to predict until:', min_value = 10, max_value = 100, value = 25, step = 1)
+            industry_size = 1000000000 * industry_size
 
-        st.subheader('Projected Eikona Users')
-        st.line_chart(eikona_projected)
+            #col1 = st.columns(1)
+            #with col1:
+        
+        with col6:
 
-    with col4:
-        st.subheader('Toggle Estimates for Revenue and Costs')
-        cost_mint = st.slider('Estimated Cost of User to Mint ($)...', 0.00, 5.00, 0.25, 0.25)
-        server_cost = st.slider('Estimated Server Costs (Per User in $)...', 0.00, 1.00, 0.10, 0.01)
-        price_mint = st.slider('Estimated Price for User to Mint ($)...', 0.00, 10.00, 5.00, 0.25)
-        conversion_rate = st.slider('Estimated Share of Users Who Mint (%)...', 0, 100, 50)
-        conversion_rate = conversion_rate*0.01
-        ar_ad_cpm = st.slider('Estimated Avg Number of Additional Mints (Adventures) Per Converted User', 0, 50, 10)
+            fig = plt.figure()
+            ax = plt.gca()
 
-    eikona_projected = eikona_projected.reset_index()
-    l = []
-    for i in eikona_projected.iterrows():
-        year = i[1]['Year']
-        converts = round(i[1]['Projected Eikona Users']*conversion_rate)
-        cost = (server_cost*eikona_users)+(cost_mint*converts) + (converts*ar_ad_cpm*cost_mint) + (server_cost*converts*ar_ad_cpm)
-        revenue = converts*price_mint + (converts*ar_ad_cpm*price_mint)
-        profit = revenue - cost
-        #revenue = '${:,}'.format(float(round(converts*price_mint)))
-        #profit = '${:,}'.format(float(round(profit)))
-        tup=(year,converts, cost, revenue, profit)
-        l.append(tup)
-    eikona_finances = pd.DataFrame(l, columns=['Year','Converts','Costs', 'Revenue', 'Profit'])
+            #Pull in historic Coinbase user data and reformat for Bass graph
+            coinbase_users_historic["Lifetime"] = coinbase_users_historic['Year']-2014
+            coinbase_users_historic = coinbase_users_historic.drop("Year", 1)
+            coinbase_users_historic["Users"] = coinbase_users_historic['Coinbase Users']*1000000
+            coinbase_users_historic = coinbase_users_historic.drop("Coinbase Users", 1)
+                
+                #Plot Coinbase user data
+            ax.plot(coinbase_users_historic['Lifetime'], coinbase_users_historic['Users'],'x', markersize=5)
 
-    st.subheader('Early Financial Performance')
-    col5, col6 = st.columns(2)
-    with col5:
-        eikona_finances
-    with col6:
-        eikona_finances_graph = eikona_finances[['Year','Revenue', 'Costs', 'Profit']]
-        eikona_finances_graph = eikona_finances_graph.set_index('Year')
-        st.line_chart(eikona_finances_graph)
+                #Calling the function to get the new models
+            N, A = get_bass_model(p_coefficient, q_coefficient, M=float(industry_size), period = period)
+                
+                #Creating Periods
+            t = list(range(0, period))
+
+                #Plotting Data and changing size of points
+            ax.plot(t, N, 'o', markersize = 4)
+                
+                #Give it a cleaner look and remove the spines
+            ax.spines['top'].set_visible(False)
+            ax.spines['right'].set_visible(False)
+
+                # Setting label and title
+            ax.set_title('Adoption Count for p = {} and q = {}'.format(p_coefficient, q_coefficient))
+            ax.set_ylabel("New Customers")
+            ax.set_xlabel("Industry Lifetime (y)")
+
+                # Creating a clean layout
+            fig.tight_layout()
+
+            st.pyplot(fig)
+
+            users_t = coinbase_users_historic['Users'][7]
+            t = coinbase_users_historic['Lifetime'][7]
+            m = users_t * (p_coefficient/(p_coefficient+q_coefficient)**2) * (((1 + (q_coefficient/p_coefficient) * (e ** -(p_coefficient + q_coefficient)*t))**2) / (e ** -(p_coefficient+q_coefficient)*t))
+            
+
+    if eikona_choice == "Tokenomics & Business Model":
+        st.header("Tokenomics & Business Model")
+
+        #initial values
+
+        col1, col2 = st.columns(2)
+
+        with col1:
+            st.subheader("Levers")
+            #initial values
+            total_value = st.slider('Total Market Cap ($) Starting in Reserve: ', min_value = 100000, max_value = 5000000, value = 100000, step = 100000)
+            total_coin = st.slider('Initial Circulating Supply of $EKO', min_value = 1000000000, max_value = 1000000000000, value = 1000000000, step = 1000000000)
+            percent_coin_owned = total_coin
+            #parameters
+            initial_people_involved = st.number_input('Number of initial players: ', min_value = 1, max_value = 100000000, value = 10000, step = 250)
+            user_growth_rate = st.slider('Rate of User Growth/Month: 0.01 is equal to 1 percent of initial users', min_value = 0.01, max_value = 10.0, value = 0.5)
+            avg_min_month = st.slider('Average Minutes Walked in AR/Month: ', min_value = 0, max_value = 600, value = 300, step = 10)
+            st.write('_Equivalent to ' + str(float(avg_min_month/60)) + ' hours or ' + str(avg_min_month*60) + ' seconds_')
+            rate_per_sec_AR = st.slider('$EKO generated each second in AR ad-compatible space: ', min_value = 0.001, max_value = 5.0, value = 0.01)
+            x = (avg_min_month*60)*rate_per_sec_AR
+            rate_of_generation = x #rate of $EKO per month being generated
+
+            people_involved = initial_people_involved
+
+            #days = 1000
+            #total_coin = total_coin+people_involved*rate_of_generation*days
+            #v1 is the value that our coin worth
+            v1 = total_value*(percent_coin_owned/total_coin)
+            #v2 is the value of a single coin
+            v2 = v1/percent_coin_owned
+
+            #m is the amount of months it takes for The Reserve to be worth 1 dollar
+            m = (total_value/1000*percent_coin_owned-percent_coin_owned)/(rate_of_generation*people_involved*100)
+
+
+            fig = plt.figure()
+            ax = plt.gca()
+            uot_line = plt.gca()
+
+
+
+            v_ = []
+            uot = []
+            l = []
+            days_simulated = int(m)
+            for i in range(days_simulated):
+                month = i
+                total_coin = percent_coin_owned+(initial_people_involved + (initial_people_involved * user_growth_rate))*rate_of_generation*i
+                v = total_value*(percent_coin_owned/total_coin)
+                uot_ = (initial_people_involved+(initial_people_involved * user_growth_rate*i))
+                tup = (month, uot_, v)
+                uot.append(uot_)
+                l.append(tup)
+                v_.append(v)
+
+
+        with col2:
+            st.subheader("Visualizing Tokenomics")
+            ax.plot(range(days_simulated),v_, label = 'Coin to users travellig the quota in AR over time')
+            uot_line.plot(range(days_simulated), uot, label = 'Number of Impressionable users over time')
+            plt.plot(60, uot[60], marker="x", label = 'The number of players at 5 years in: ' + str(uot[60]), markeredgecolor="red", markerfacecolor="green")
+            plt.plot(60, v_[60], marker="x", label = 'The value of the coin at 5 years in: ' + str(v_[60]), markeredgecolor="blue", markerfacecolor="blue")
+            plt.xlabel("Months to People-Owned Currency")
+            plt.ylabel("Reserve Value")
+            plt.legend()
+            plt.xlim(4,100)
+            #plt.ylim(10000, 10000000)
+            #plt.ylim = (initial_people_involved, 1000000)
+            #start, end = ax.get_ylim()
+            #plt.yticks(np.arange(start, end, 1000000000))
+
+            fig.tight_layout()
+            st.pyplot(fig)
+
+            st.write('What this shows is the amount of coin we own over time vs. The ammount of concurrent players holdings(x) plotted against the number of months at those settings it will take before The Reserves initial market supply loses value to 1$')
+
+        st.header("The Business Model")
+        col3, col4 = st.columns(2)
+        with col3:
+            uot = pd.DataFrame(l, columns = ['Year', 'Users', '$EKO Value'])
+            st.subheader('Toggle Revenue Basics')
+            #cost_mint = st.slider('Estimated Cost of User to Mint ($)...', 0.00, 5.00, 0.25, 0.05)
+            #server_cost = st.slider('Estimated Server Costs (Per User in $)...', 0.00, 1.00, 0.10, 0.01)
+            price_mint = st.slider('Estimated Price for User to Mint ($USD)...', 0.00, 10.00, 5.00, 0.25)
+            #conversion_rate = st.slider('Estimated Share of Users Who Mint (%)...', 0, 100, 50)
+            #conversion_rate = conversion_rate*0.01
+            ar_ad_cpm = st.slider('Estimated Avg Number of Exchanges In-Game', 0, 50, 10)
+            transaction_cost = st.slider('Transaction Fee ($USD)...', 0.00, 5.00, 0.25, 0.05)
+
+        with col4:
+            st.subheader("Eikona Game Revenue & Ad-Eligible Users By Year")
+            l = []
+            for i in uot.iterrows():
+                month = float(i[1]['Year'])
+                users = i[1]['Users']
+                coin = i[1]['$EKO Value']
+                revenue = users*price_mint + users*ar_ad_cpm*transaction_cost
+                tup=(month, users, coin, revenue)
+                l.append(tup)
+            eikona_business = pd.DataFrame(l, columns=['Month','Users','$EKO Value', 'Revenue ($USD)'])
+            eikona_business = eikona_business.set_index("Month")
+            eikona_user_and_revenue = eikona_business[['Users', 'Revenue ($USD)']]
+            eikona_user_and_coin = eikona_business[['Users', '$EKO Value']]
+            st.area_chart(eikona_user_and_revenue)
+        
+        st.subheader("Eikona inching toward people-owned currency only comes with growth in valuable AR ad-eligible userbase...")
+        st.area_chart(eikona_user_and_coin)
 
 if choose == "Just for Fun: Curated Search":
     st.title("Just for Fun: Curated Search")
@@ -390,7 +623,7 @@ if choose == "Just for Fun: Curated Search":
             st.write("Please type in a query first :)")
     else:
         pass
-        
+
 if choose == "Contact":
     st.title("Contact Information")
     linkedin = "https://www.linkedin.com/in/maxwell-knowles/"
@@ -398,4 +631,3 @@ if choose == "Contact":
     spotify = "https://open.spotify.com/artist/2p2YiVrDP0scQefeefDqCO?si=LIyTgWg5T1KL7Fn79lXHPw"
     st.write("[Spotify](%s)" % spotify)
     st.write("Email: maxknowles27@gmail.com")
-    
