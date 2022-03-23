@@ -9,4 +9,3 @@ bs4
 google
 beautifulsoup4
 matplotlib
-math
