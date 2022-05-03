@@ -378,7 +378,7 @@ if choose == "Consulting: AR-Based NFT Gaming Startup":
         col3, col4 = st.columns(2)
 
         with col3:
-            image = "https://raw.githubusercontent.com/Eikona-Patunga/eikona-analytics/main/BASS.png?token=GHSAT0AAAAAABRWO7YDPLQFWEAZLWJWTWSAYR3NLCQ"
+            image = "https://github.com/maxwellknowles/portfolio/raw/main/Diffusion-of-Innovation.png"
             st.image(image)
 
         with col4:
